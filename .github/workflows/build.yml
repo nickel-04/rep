@@ -16,11 +16,11 @@ jobs:
       - name: logs
         run:  ls
       - name: Move
-        run: mkdir -p artifacts && mv report.tex.pdf ./artifacts/
+        run: mkdir -p artifacts && mv report.pdf ./artifacts/
       - name: Upload PDF as artifact
         uses: actions/upload-artifact@v3
         with:
           name: artifacts
-          path: ./artifacts/report.tex.pdf
+          path: ./artifacts/report.pdf
 
      
