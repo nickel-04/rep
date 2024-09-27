@@ -11,15 +11,14 @@ jobs:
         uses: actions/checkout@v3
       - name: Compile PDF
         run: |
-          latexmk -pdf --shell-escape  ${{ vars.FILE_TEX }}
+          latexmk -pdf -pdflatex="${{ vars.ENGINE }} --shell-escape %O %S" ${{ vars.FILE }}
       - name: Move
-        run: mkdir -p artifacts && mv ${{ vars.FILE_PDF }} ./artifacts/
+        run: mkdir -p artifacts && mv ${{ vars.FILE }}.pdf ./artifacts/
       - name: Upload PDF as artifact
         uses: actions/upload-artifact@v3
         with:
           name: artifacts
-          path: ./artifacts/${{ vars.FILE_PDF }}
-
+          path: ./artifacts/${{ vars.FILE }}.pdf
 
   deploy:
     needs: [build-main]
@@ -38,4 +37,4 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: |
-            ./${{ vars.FILE_PDF }}
+            ./${{ vars.FILE }}.pdf
