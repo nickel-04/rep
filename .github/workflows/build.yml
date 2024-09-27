@@ -21,7 +21,7 @@ jobs:
           path: ./artifacts/${{ vars.FILE_PDF }}
 
 
-deploy:
+  deploy:
     needs: [build-main]
     runs-on: self-hosted
     container:
